@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+
+  oce-redis:
+    image: redis:5.0.2
+    command: redis-server --appendonly yes --save 300 10
+    volumes:
+      - ./redis/data:/data
+
+  oce-backend:
+    image: oce:latest
+    volumes:
+      - ./oce/application.yml:/home/www/application.yml:ro
+      - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATASOURCE_URL=${MYSQL_URL}
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
+      - SPRING_REDIS_DATABASE=${REDIS_DATABASE}
+      - SPRING_REDIS_HOST=${REDIS_HOST}
+      - SPRING_REDIS_PORT=${REDIS_PORT}
+      - SPRING_REDIS_PASSWORD=${REDIS_PASSWORD}
+    depends_on:
+      - oce-redis
+    ports:
+      - "8080:8080"
+
+
+
