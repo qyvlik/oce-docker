@@ -9,7 +9,7 @@ services:
       - ./redis/data:/data
 
   oce-backend:
-    image: oce:latest
+    image: qyvlik/oce:latest
     volumes:
       - ./oce/application.yml:/home/www/application.yml:ro
       - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
