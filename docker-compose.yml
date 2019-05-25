@@ -2,12 +2,6 @@ version: '2'
 
 services:
 
-  oce-redis:
-    image: redis:5.0.2
-    command: redis-server --appendonly yes --save 300 10
-    volumes:
-      - ./redis/data:/data
-
   oce-backend:
     image: qyvlik/oce:latest
     volumes:
@@ -22,8 +16,6 @@ services:
       - SPRING_REDIS_HOST=${REDIS_HOST}
       - SPRING_REDIS_PORT=${REDIS_PORT}
       - SPRING_REDIS_PASSWORD=${REDIS_PASSWORD}
-    depends_on:
-      - oce-redis
     ports:
       - "8081:8080"
 
