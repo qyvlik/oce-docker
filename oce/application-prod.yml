@@ -14,18 +14,32 @@ spring:
       validation-timeout: 3000
   redis:
     database: 0
-    host: 127.0.0.1
+    host: 192.168.5.48
     port: 6379
     password:
     jedis:
       pool:
         max-active: 500
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: admin
-    password: admin
-    virtual-host: /
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger.ms: 1
+      acks: 0
+    consumer:
+      bootstrap-servers: localhost:9092
+#      enable-auto-commit: true
+#      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
 
 snowflake:
   dataCenterId: 0
