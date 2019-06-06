@@ -31,7 +31,7 @@ spring:
       acks: 0
     consumer:
       bootstrap-servers: localhost:9092
-#      enable-auto-commit: true
+      enable-auto-commit: false
 #      auto-commit-interval: 100ms
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
