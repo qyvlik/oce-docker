@@ -23,3 +23,6 @@ services:
       - SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
     ports:
       - "8081:8080"
+    cpu_count: 8
+    mem_limit: 16G
+    mem_reservation: 1G
