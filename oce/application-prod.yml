@@ -37,6 +37,9 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         session.timeout.ms: 15000
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@localhost:27017/admin
 
 snowflake:
   dataCenterId: 0
@@ -49,3 +52,4 @@ table:
 #logging:
 #  level:
 #    io: debug
+
