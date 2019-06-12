@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 
 services:
 
@@ -25,3 +25,6 @@ services:
       - SPRING_DATA_MONGO_URI=${MONGO_URI}
     ports:
       - "8081:8080"
+    cpu_count: 8
+    mem_limit: 16G
+    mem_reservation: 1G

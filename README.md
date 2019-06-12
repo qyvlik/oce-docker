@@ -1,7 +1,7 @@
 # oce-docker-compose
 
 1. make sure you have install `docker` and `docker-compose`
-2. copy [.env.example](./.env.example) to [`.env`](./.env)，[`.env`](./.env)
+2. copy [.env.example](./.env.example) to [`.env`](./.env)
 3. define the env var in the [`.env`](./.env) file
 4. `docker-compose pull`
 5. `docker-compose up -d`
