@@ -8,7 +8,7 @@ spring:
     hikari:
       connection-test-query: SELECT 1 FROM DUAL
       connection-timeout: 30000
-      maximum-pool-size: 200
+      maximum-pool-size: 100
       max-lifetime: 1800000
       minimum-idle: 5
       validation-timeout: 3000
