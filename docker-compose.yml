@@ -2,13 +2,60 @@ version: '2.2'
 
 services:
 
-  oce-broker-0:
+  oce-zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  oce-kafka:
+    image: wurstmeister/kafka
+    depends_on:
+      - oce-zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_HOST_MACHINE_IP}
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: oce-zookeeper:2181
+
+  oce-mongo:
+    image: mongo:4
+    volumes:
+      - ${MONGODB_VOLUMES}:/data/db/
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=admin
+    ports:
+      - "27017:27017"
+    mem_limit: 512M
+    mem_reservation: 256M
+
+  oce-mysql:
+    image: mysql:5.6
+    volumes:
+      - ${MYSQL_VOLUMES}:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    mem_limit: 512M
+    mem_reservation: 256M
+
+  oce-redis:
+    image: redis:4
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ${REDIS_VOLUMES}:/data
+
+  oce-0:
     image: qyvlik/oce:latest
     volumes:
       - ./oce/application.yml:/home/www/application.yml:ro
       - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_PROFILES_ACTIVE=prod,dispatcher,delivery,matcher
 
       - SPRING_DATASOURCE_URL=${MYSQL_URL}
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
@@ -26,97 +73,12 @@ services:
 
       - SNOWFLAKE_DATACENTERID=0
       - SNOWFLAKE_MACHINEID=0
-
-    cpu_count: 4
-    mem_limit: 4G
-    mem_reservation: 1G
-
-  oce-broker-1:
-    image: qyvlik/oce:latest
-    volumes:
-      - ./oce/application.yml:/home/www/application.yml:ro
-      - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-
-      - SPRING_DATASOURCE_URL=${MYSQL_URL}
-      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
-
-      - SPRING_REDIS_DATABASE=${REDIS_DATABASE}
-      - SPRING_REDIS_HOST=${REDIS_HOST}
-      - SPRING_REDIS_PORT=${REDIS_PORT}
-      - SPRING_REDIS_PASSWORD=${REDIS_PASSWORD}
-
-      - SPRING_KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-      - SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-
-      - SPRING_DATA_MONGODB_URI=${MONGO_URI}
-
-      - SNOWFLAKE_DATACENTERID=0
-      - SNOWFLAKE_MACHINEID=1
-
-    cpu_count: 4
-    mem_limit: 4G
-    mem_reservation: 1G
-
-  oce-broker-2:
-    image: qyvlik/oce:latest
-    volumes:
-      - ./oce/application.yml:/home/www/application.yml:ro
-      - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod,dispatcher,delivery
-
-      - SPRING_DATASOURCE_URL=${MYSQL_URL}
-      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
-
-      - SPRING_REDIS_DATABASE=${REDIS_DATABASE}
-      - SPRING_REDIS_HOST=${REDIS_HOST}
-      - SPRING_REDIS_PORT=${REDIS_PORT}
-      - SPRING_REDIS_PASSWORD=${REDIS_PASSWORD}
-
-      - SPRING_KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-      - SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-
-      - SPRING_DATA_MONGODB_URI=${MONGO_URI}
-
-      - SNOWFLAKE_DATACENTERID=0
-      - SNOWFLAKE_MACHINEID=2
-
-    cpu_count: 4
-    mem_limit: 4G
-    mem_reservation: 1G
-
-  oce-me:
-    image: qyvlik/oce:latest
-    volumes:
-      - ./oce/application.yml:/home/www/application.yml:ro
-      - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod,matcher
-
-      - SPRING_DATASOURCE_URL=${MYSQL_URL}
-      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
-
-      - SPRING_REDIS_DATABASE=${REDIS_DATABASE}
-      - SPRING_REDIS_HOST=${REDIS_HOST}
-      - SPRING_REDIS_PORT=${REDIS_PORT}
-      - SPRING_REDIS_PASSWORD=${REDIS_PASSWORD}
-
-      - SPRING_KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-      - SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
-
-      - SPRING_DATA_MONGODB_URI=${MONGO_URI}
-
-      - SNOWFLAKE_DATACENTERID=0
-      - SNOWFLAKE_MACHINEID=3
-
-    cpu_count: 4
-    mem_limit: 4G
-    mem_reservation: 1G
+    depends_on:
+      - oce-kafka
+      - oce-mysql
+      - oce-mongo
+    mem_limit: 512M
+    mem_reservation: 256M
 
   oce-nginx:
     image: nginx:1.15.5-alpine
@@ -126,10 +88,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     ports:
-      - "8081:3000"
+      - "3000:3000"
     depends_on:
-      - oce-broker-0
-      - oce-broker-1
-      - oce-broker-2
-      - oce-me
-    cpu_count: 4
+      - oce-0
