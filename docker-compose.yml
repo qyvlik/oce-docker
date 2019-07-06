@@ -37,10 +37,9 @@ services:
       - ${MYSQL_VOLUMES}:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_HOST=%
     ports:
       - "3306:3306"
-    mem_limit: 512M
-    mem_reservation: 256M
 
   oce-redis:
     image: redis:4
