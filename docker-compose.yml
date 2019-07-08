@@ -20,8 +20,6 @@ services:
 
   oce-mongo:
     image: mongo:4
-    volumes:
-      - ${MONGODB_VOLUMES}:/data/db/
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
@@ -34,7 +32,7 @@ services:
   oce-mysql:
     image: mysql:5.6
     volumes:
-      - ${MYSQL_VOLUMES}:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_HOST=%
@@ -44,10 +42,6 @@ services:
 
   oce-redis:
     image: redis:4
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - ${REDIS_VOLUMES}:/data
 
   oce-0:
     image: qyvlik/oce:latest
