@@ -4,15 +4,11 @@ services:
 
   oce-zookeeper:
     image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
 
   oce-kafka:
     image: wurstmeister/kafka
     depends_on:
       - oce-zookeeper
-    ports:
-      - "9092:9092"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_HOST_MACHINE_IP}
       KAFKA_ADVERTISED_PORT: 9092
@@ -24,8 +20,6 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
       - MONGO_INITDB_DATABASE=admin
-    ports:
-      - "27017:27017"
     mem_limit: 512M
     mem_reservation: 256M
 
@@ -37,8 +31,6 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=201904-exchange
-    ports:
-      - "3306:3306"
 
   oce-redis:
     image: redis:4
