@@ -67,8 +67,8 @@ services:
       - oce-kafka
       - oce-mysql
       - oce-mongo
-    mem_limit: 512M
-    mem_reservation: 256M
+    mem_limit: 1G
+    mem_reservation: 512M
 
   oce-nginx:
     image: nginx:1.15.5-alpine
