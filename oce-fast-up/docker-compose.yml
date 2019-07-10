@@ -24,8 +24,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
       - MONGO_INITDB_DATABASE=admin
-    mem_limit: 512M
-    mem_reservation: 256M
+    mem_limit: ${MONGODB_MEM_LIMIT}
 
   oce-mysql:
     image: mysql:5.6
@@ -39,7 +38,7 @@ services:
   oce-redis:
     image: redis:4
 
-  oce-0:
+  oce:
     image: qyvlik/oce:latest
     volumes:
       - ./oce/application.yml:/home/www/application.yml:ro
@@ -67,8 +66,8 @@ services:
       - oce-kafka
       - oce-mysql
       - oce-mongo
-    mem_limit: 1G
-    mem_reservation: 512M
+    mem_limit: ${OCE_MEM_LIMIT}
+    mem_reservation: ${OCE_MEM_RESERVATION}
 
   oce-nginx:
     image: nginx:1.15.5-alpine
@@ -80,4 +79,4 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - oce-0
+      - oce
