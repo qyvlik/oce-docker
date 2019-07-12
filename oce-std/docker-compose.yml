@@ -42,8 +42,7 @@ services:
 
   oce-redis:
     image: redis:4
-    # save '60 10', 60 seconds or 10 keys changes
-    command: redis-server --appendonly yes --save '60 1000'
+    command: redis-server --appendonly yes --aof-use-rdb-preamble yes
     volumes:
       - ${REDIS_VOLUMES}:/data
 
