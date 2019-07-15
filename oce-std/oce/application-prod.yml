@@ -49,7 +49,14 @@ table:
   shared:
     order4user: 10 # 用户订单表分片 10 个
 
-#logging:
-#  level:
-#    io: debug
+logging:
+  level:
+    io:
+      github:
+        qyvlik:
+          oce:
+            modules:
+              order:
+                broker: DEBUG
+
 
