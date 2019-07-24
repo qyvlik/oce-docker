@@ -8,7 +8,8 @@ SELECT
     round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
 FROM information_schema.TABLES 
 WHERE table_schema = "201904-exchange"
-    AND table_name like "tb_order_%";
+    AND table_name like "tb_order_%"
+ORDER BY 2 DESC;
 ```
 
 ```sql
@@ -17,7 +18,8 @@ SELECT
     round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
 FROM information_schema.TABLES 
 WHERE table_schema = "201904-exchange"
-    AND table_name like "tb_user_%";
+    AND table_name like "tb_user_%"
+ORDER BY 2 DESC; 
 ```
 
 ```sql
@@ -26,7 +28,8 @@ SELECT
     round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
 FROM information_schema.TABLES 
 WHERE table_schema = "201904-exchange"
-    AND table_name like "tb_%";
+    AND table_name like "tb_%"
+ORDER BY 2 DESC;
 ```
 
 ## show table index size
