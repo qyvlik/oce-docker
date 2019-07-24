@@ -1,6 +1,6 @@
 # oce-fast-up
 
-1. **`oce-fast-up` does not set volumes**
+1. **`oce-fast-up` does not set docker volumes**
 2. make sure you have install `docker` and `docker-compose`
 3. copy [.env.example](./.env.example) to [`.env`](./.env)
 4. define the env var in the [`.env`](./.env) file
