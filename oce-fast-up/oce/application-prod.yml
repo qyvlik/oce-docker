@@ -38,6 +38,7 @@ spring:
       properties:
         session.timeout.ms: 15000
       fetch-max-wait: 50ms
+      fetch-min-size: 4KB
   data:
     mongodb:
       uri: mongodb://admin:admin@localhost:27017/admin
