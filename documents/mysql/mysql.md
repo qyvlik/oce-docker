@@ -42,6 +42,19 @@ WHERE stat_name = 'size' AND index_name != 'PRIMARY'
 ORDER BY 4 DESC;
 ```
 
+## show table data free
+
+```sql
+SELECT 
+    table_name AS `Table`, 
+    round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` ,
+    round((DATA_FREE / 1024 / 1024), 2) `DATA_FREE in MB`
+FROM information_schema.TABLES 
+WHERE table_schema = "201904-exchange"
+    AND table_name like "tb_%"
+ORDER BY 2 DESC;
+```
+
 ## qps&tps
 
 ```bash
