@@ -40,6 +40,8 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=201904-exchange
+    ports:
+      - "3306:3306"
 
   oce-redis:
     image: redis:4
