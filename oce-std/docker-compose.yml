@@ -32,7 +32,7 @@ services:
 
   oce-mysql:
     image: mysql:5.6
-    command: --innodb-log-buffer-size=${MYSQL_INNODB_LOG_BUFFER_SIZE}
+    command: --innodb-buffer-pool-size=${MYSQL_INNODB_BUFFER_POOL_SIZE}
     volumes:
       - ${MYSQL_VOLUMES}:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d
