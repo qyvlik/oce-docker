@@ -43,6 +43,23 @@ spring:
     mongodb:
       uri: mongodb://admin:admin@localhost:27017/admin
 
+influxdb:
+  url: http://oce-tsdb:8086
+  username: admin
+  password: admin
+  database: oce
+  retention-policy: rp_default
+  batch:
+    actions: 100
+    flush-duration: 500
+    jitter-duration: 0
+    buffer-limit: 10000
+    precision: nanoseconds
+    consistency: ONE
+
+elapsed:
+  collect: false
+
 snowflake:
   dataCenterId: 0
   machineId: 0
