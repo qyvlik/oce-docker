@@ -58,7 +58,7 @@ influxdb:
     consistency: ONE
 
 elapsed:
-  collect: false
+  collect: true
 
 snowflake:
   dataCenterId: 0
