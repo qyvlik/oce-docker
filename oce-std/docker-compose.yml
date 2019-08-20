@@ -95,6 +95,8 @@ services:
       - INFLUXDB_DATABASE=${INFLUXDB_DB}
       - INFLUXDB_RETENTION_POLICY=${INFLUXDB_RP}
 
+      - ELAPSED_COLLECT=true
+
     mem_limit: ${OCE_MEM_LIMIT}
     depends_on:
       - oce-kafka
@@ -131,6 +133,8 @@ services:
       - INFLUXDB_DATABASE=${INFLUXDB_DB}
       - INFLUXDB_RETENTION_POLICY=${INFLUXDB_RP}
 
+      - ELAPSED_COLLECT=true
+
     mem_limit: ${OCE_MEM_LIMIT}
     depends_on:
       - oce-kafka
@@ -166,6 +170,8 @@ services:
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
       - INFLUXDB_DATABASE=${INFLUXDB_DB}
       - INFLUXDB_RETENTION_POLICY=${INFLUXDB_RP}
+
+      - ELAPSED_COLLECT=true
 
     mem_limit: ${OCE_MEM_LIMIT}
     depends_on:
