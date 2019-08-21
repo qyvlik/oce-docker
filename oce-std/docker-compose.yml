@@ -201,4 +201,4 @@ services:
       - "3001:3000"
 
 volumes:
-  - grafana_volumes
+  grafana_volumes:
