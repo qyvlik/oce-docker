@@ -196,7 +196,9 @@ services:
   oce-grafana:
     image: grafana/grafana:master
     volumes:
-      - ${GRAFANA_VOLUMES}:/var/lib/grafana
+      - grafana_volumes:/var/lib/grafana
     ports:
       - "3001:3000"
-    user: "472"
+
+volumes:
+  - grafana_volumes
