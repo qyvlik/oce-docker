@@ -192,3 +192,10 @@ services:
       - oce-broker-0
       - oce-broker-1
       - oce-me
+
+  oce-grafana:
+    image: grafana/grafana:master
+    volumes:
+      - ${GRAFANA_VOLUMES}:/var/lib/grafana
+    ports:
+      - "3001:3000"

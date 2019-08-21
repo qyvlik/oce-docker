@@ -37,7 +37,7 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         session.timeout.ms: 15000
-      fetch-max-wait: 100ms
+      fetch-max-wait: 50ms
       fetch-min-size: 512KB
   data:
     mongodb:
