@@ -55,6 +55,18 @@ WHERE table_schema = "201904-exchange"
 ORDER BY 2 DESC;
 ```
 
+## show table b+tree height
+
+```sql
+SELECT
+b.name, a.name, index_id, type, a.space, a.PAGE_NO
+FROM
+information_schema.INNODB_SYS_INDEXES a,
+information_schema.INNODB_SYS_TABLES b
+WHERE
+a.table_id = b.table_id AND a.space <> 0;
+```
+
 ## qps&tps
 
 ```bash
