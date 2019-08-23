@@ -44,7 +44,6 @@ spring:
       uri: mongodb://admin:admin@localhost:27017/admin
 
 influxdb:
-  enable: false
   url: http://localhost:8086
   username: admin
   password: admin
