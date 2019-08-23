@@ -44,6 +44,7 @@ spring:
       uri: mongodb://admin:admin@localhost:27017/admin
 
 influxdb:
+  enable: false
   url: http://oce-tsdb:8086
   username: admin
   password: admin
@@ -59,6 +60,9 @@ influxdb:
 
 elapsed:
   collect: false
+  cost:
+    place-order: 160ms
+    query-order: 150ms
 
 snowflake:
   dataCenterId: 0
