@@ -59,6 +59,9 @@ influxdb:
 
 elapsed:
   collect: true
+  cost:
+    place-order: 160ms
+    query-order: 150ms
 
 snowflake:
   dataCenterId: 0

@@ -45,7 +45,7 @@ spring:
 
 influxdb:
   enable: false
-  url: http://oce-tsdb:8086
+  url: http://localhost:8086
   username: admin
   password: admin
   database: oce
