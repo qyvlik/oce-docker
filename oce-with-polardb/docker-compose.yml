@@ -35,10 +35,6 @@ services:
     volumes:
       - ${INFLUXDB_VOLUMES}:/var/lib/influxdb
       - ./influxdb:/docker-entrypoint-initdb.d/:ro
-    ports:
-      - "18086:8086"
-#      - "8083:8083"
-#      - "2003:2003"
     environment:
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
@@ -171,7 +167,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     ports:
-      - "3000:3000"
+      - "4000:3000"
     depends_on:
       - oce-broker-0
       - oce-broker-1
@@ -182,7 +178,7 @@ services:
     volumes:
       - grafana_volumes:/var/lib/grafana
     ports:
-      - "3001:3000"
+      - "4001:3000"
 
 volumes:
   grafana_volumes:
