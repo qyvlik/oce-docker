@@ -109,7 +109,7 @@ services:
       - ./oce/application.yml:/home/www/application.yml:ro
       - ./oce/application-prod.yml:/home/www/application-prod.yml:ro
     environment:
-      - SPRING_PROFILES_ACTIVE=prod,dispatcher,delivery
+      - SPRING_PROFILES_ACTIVE=prod,delivery
 
       - SPRING_DATASOURCE_URL=${MYSQL_URL}
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}

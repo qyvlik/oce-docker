@@ -4,7 +4,7 @@ server:
 
 spring:
   profiles:
-    active: prod,matcher,dispatcher,delivery
+    active: prod,matcher,delivery
 mybatis:
   mapper-locations: classpath:/mapping/**/*.xml
 
