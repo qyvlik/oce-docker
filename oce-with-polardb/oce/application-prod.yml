@@ -1,0 +1,84 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/201904-exchange?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL
+      connection-timeout: 30000
+      maximum-pool-size: 100
+      max-lifetime: 1800000
+      minimum-idle: 5
+      validation-timeout: 3000
+  redis:
+    database: 0
+    host: 192.168.5.48
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 500
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger.ms: 1
+      acks: 0
+    consumer:
+      bootstrap-servers: localhost:9092
+      enable-auto-commit: false
+#      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
+      fetch-max-wait: 50ms
+      fetch-min-size: 512KB
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@localhost:27017/admin
+
+influxdb:
+  url: http://oce-tsdb:8086
+  username: admin
+  password: admin
+  database: oce
+  retention-policy: rp_default
+  batch:
+    actions: 100
+    flush-duration: 500
+    jitter-duration: 0
+    buffer-limit: 10000
+    precision: nanoseconds
+    consistency: ONE
+
+elapsed:
+  collect: true
+  cost:
+    place-order: 160ms
+    query-order: 150ms
+
+snowflake:
+  dataCenterId: 0
+  machineId: 0
+
+table:
+  shared:
+    order4user: 10 # 用户订单表分片 10 个
+
+#logging:
+#  level:
+#    io:
+#      github:
+#        qyvlik:
+#          oce:
+#            modules:
+#              order:
+#                broker: DEBUG
+
+

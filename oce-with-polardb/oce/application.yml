@@ -1,0 +1,14 @@
+
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: prod,matcher,dispatcher,delivery
+mybatis:
+  mapper-locations: classpath:/mapping/**/*.xml
+
+#logging:
+#  level:
+#    io:
+#      github: DEBUG
