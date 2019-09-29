@@ -72,6 +72,10 @@ table:
   shared:
     order4user: 10 # 用户订单表分片 10 个
 
+marketdata:
+  cache-enable: true
+  cache-expire: 10
+
 #logging:
 #  level:
 #    io:
